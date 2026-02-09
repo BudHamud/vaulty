@@ -1,16 +1,37 @@
-git commit -m "first commit"# React + Vite
+<h3><strong>AnimeVault</strong></h3>
+<strong>AnimeVault</strong> is a high-performance media tracker designed for enthusiasts who need a clean, high-density interface to manage their viewing progress. Built to solve the scaling issues of traditional trackers on ultra-wide displays, it offers a tailored grid system and automated metadata synchronization.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h3><strong>Tech Stack</strong></h3>
+<strong>Frontend:</strong> React 18 with Vite.
 
-Currently, two official plugins are available:
+<strong>Styling:</strong> Tailwind CSS (Custom Grid implementation).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<strong>Database & Auth:</strong> Supabase (PostgreSQL).
 
-## React Compiler
+<strong>API:</strong> Jikan API (MyAnimeList wrapper).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<strong>Deployment:</strong> Vercel.
 
-## Expanding the ESLint configuration
+<h3><strong>Custom Hooks</strong></h3>
+<strong>useAuth:</strong> Manages authentication state.
+<br><br>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<strong>useAnimes:</strong> Handles fetching, creating and updating anime.
+
+<strong>useUserPreferences:</strong> Manages user-specific UI preferences
+
+<h3><strong>Core Services</strong></h3>
+<strong>Supabase Client:</strong> Handles secure communication with the backend and Row Level Security (RLS).
+
+<strong>Jikan Service:</strong> A specialized fetcher that normalizes external metadata (score, synopsis, dates) into the app's internal model.
+
+<strong>Data Mapper:</strong> A middleware service that transforms raw API data into a consistent format: {releaseYear}. {score}/10. {synopsis}...
+
+<h3><strong>Key Features</strong></h3>
+<strong>Ultra-Wide Optimization:</strong> Custom CSS Grid that supports up to 15+ cards per row on 2700px+ displays.
+
+<strong>Smart Search:</strong> Real-time suggestions with automated form filling.
+
+<strong>Migration Engine:</strong> Built-in tool to import and normalize data from legacy local storage versions.
+
+<strong>Responsive Modes:</strong> Seamless switching between a visual "Poster Grid" and a data-focused "List View".
