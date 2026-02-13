@@ -1,3 +1,4 @@
+import React from "react";
 import AnimeCard from "./AnimeCard";
 
 const AnimeTimeline = ({
@@ -48,6 +49,10 @@ const AnimeTimeline = ({
     return b - a;
   });
 
+  const [visibleCount, setVisibleCount] = React.useState(2);
+  const visibleYears = years.slice(0, visibleCount);
+
+  // Sorting items within years
   years.forEach((year) => {
     groupedByYear[year].sort((a, b) => {
       const dateA = new Date(getCompareDate(a));
@@ -68,7 +73,7 @@ const AnimeTimeline = ({
         <section>
           <div className="flex items-center gap-2 mb-4">
             <span className="text-amber-500 text-lg">⭐</span>
-            <h3 className="text-amber-600 text-[11px] font-black uppercase tracking-[0.2em]">
+            <h3 className="text-amber-600 dark:text-amber-400 text-[11px] font-black uppercase tracking-[0.2em]">
               Prioridades
             </h3>
           </div>
@@ -87,13 +92,13 @@ const AnimeTimeline = ({
       )}
 
       {/* --- SECCIÓN POR AÑOS --- */}
-      {years.map((year) => (
+      {visibleYears.map((year) => (
         <section key={year} className="relative">
-          <div className="sticky top-0 z-10 bg-slate-50/80 backdrop-blur-sm py-2 mb-4 flex items-center gap-4">
-            <h3 className="text-slate-400 font-black text-2xl tracking-tighter">
+          <div className="sticky top-0 z-10 bg-slate-50/80 dark:bg-slate-800/10 backdrop-blur-sm py-2 mb-4 flex items-center gap-4">
+            <h3 className="text-slate-400 dark:text-slate-500 font-black text-2xl tracking-tighter">
               {year}
             </h3>
-            <div className="h-[1px] flex-1 bg-slate-200"></div>
+            <div className="h-[1px] flex-1 bg-slate-200 dark:bg-slate-700"></div>
           </div>
 
           <div className={gridClass}>
@@ -110,9 +115,21 @@ const AnimeTimeline = ({
         </section>
       ))}
 
+      {/* Lazy Load Button */}
+      {visibleCount < years.length && (
+        <div className="flex justify-center pt-8">
+          <button
+            onClick={() => setVisibleCount(prev => prev + 3)}
+            className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-black text-xs uppercase tracking-widest px-8 py-4 rounded-full hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm"
+          >
+            Mostrar Más ({years.length - visibleCount}) ▼
+          </button>
+        </div>
+      )}
+
       {filtered.length === 0 && (
-        <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
-          <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">
+        <div className="text-center py-20 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">
+          <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-xs tracking-widest">
             No hay nada en {status}
           </p>
         </div>

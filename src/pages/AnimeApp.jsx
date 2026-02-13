@@ -6,6 +6,7 @@ import AnimeForm from "../components/AnimeForm";
 import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
 import AnimeSections from "../components/AnimeSections";
+import ImportModal from "../components/ImportModal";
 
 import { useAuth } from "../hooks/useAuth";
 import { useAnimes } from "../hooks/useAnimes";
@@ -14,7 +15,7 @@ import { useUserPreferences } from "../hooks/useUserPreferences";
 
 const AnimeApp = () => {
   const { user, loading: authLoading } = useAuth();
-  const { animes, createAnime, updateAnime, deleteAnime } = useAnimes(user);
+  const { animes, createAnime, updateAnime, deleteAnime, deleteAllAnimes } = useAnimes(user);
   const { downloadTxt } = useExportVault(animes);
   const {
     viewMode,
@@ -23,37 +24,17 @@ const AnimeApp = () => {
   } = useUserPreferences(user);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null); // null = All
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [editingAnime, setEditingAnime] = useState(null);
   const [deletingAnimeId, setDeletingAnimeId] = useState(null);
 
-  const fixExistingDescriptions = async () => {
-  console.log("Reparando descripciones existentes...");
-  
-  for (const anime of animes) {
-    try {
-      const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(anime.title)}&limit=1`);
-      const resJson = await response.json();
-      const s = resJson.data?.[0];
-
-      if (s) {
-        const releaseYear = s.aired?.from?.split("-")[0] || "????";
-        const newDesc = `${releaseYear}. ${s.score ? `${s.score}/10. ` : ""}${s.synopsis?.substring(0, 150)}...`;
-
-        await updateAnime(anime.id, { ...anime, description: newDesc });
-        console.log(`🔧 Actualizado: ${anime.title}`);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-    } catch (e) {
-      console.error("Error actualizando:", anime.title);
-    }
-  }
-  alert("Proceso de reparación terminado.");
-};
-
-  const filteredAnimes = animes.filter((a) =>
-    a.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredAnimes = animes.filter((a) => {
+    const matchesSearch = a.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory ? a.type === selectedCategory : true;
+    return matchesSearch && matchesCategory;
+  });
 
   const stats = useMemo(
     () => ({
@@ -76,14 +57,32 @@ const AnimeApp = () => {
     setEditingAnime(null);
   };
 
+  const handleBatchImport = async (importedAnimes) => {
+    // Process imports sequentially or in parallel?
+    // useHooks likely updates state, so sequential might be safer for UI updates,
+    // but parallel is faster. createAnime is likely an async wrapper around supabase insert.
+
+    console.log(`Importing ${importedAnimes.length} animes...`);
+    // We can iterate and create.
+    for (const anime of importedAnimes) {
+      // Check for duplicates?
+      const exists = animes.some(a => a.title.toLowerCase() === anime.title.toLowerCase());
+      if (!exists) {
+        await createAnime(anime);
+      }
+    }
+    // We do NOT close the modal here anymore, to allow "Batch by Batch" importing.
+    // The Modal component will call onClose when the user clicks "Finish" or "Close".
+  };
+
   if (authLoading || prefsLoading) return null;
   if (!user) return <Auth />;
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8 w-full lg:max-w-none">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-2 sm:p-4 md:p-8 w-full lg:max-w-none transition-colors">
       <button
         onClick={() => supabase.auth.signOut()}
-        className="mb-6 text-[10px] font-black text-slate-300 hover:text-red-400 uppercase tracking-widest"
+        className="mb-6 text-[10px] font-black text-slate-300 dark:text-slate-600 hover:text-red-400 dark:hover:text-red-500 uppercase tracking-widest transition-colors"
       >
         Cerrar Sesión
       </button>
@@ -92,10 +91,17 @@ const AnimeApp = () => {
         stats={stats}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        onAdd={() => setIsModalOpen(true)}
+        onAdd={() => {
+          setEditingAnime(null); // Ensure clean state for new
+          setIsModalOpen(true);
+        }}
+        onImport={() => setIsImportModalOpen(true)}
+        onDeleteAll={deleteAllAnimes}
         onDownload={downloadTxt}
         viewMode={viewMode}
         setViewMode={setViewMode}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
       />
 
       <AnimeSections
@@ -111,14 +117,22 @@ const AnimeApp = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingAnime ? "Editar Anime" : "Nuevo Registro"}
+        title={editingAnime ? "Editar" : "Nuevo Registro"}
       >
         <AnimeForm
-          key={editingAnime?.id || "new"}
+          key={editingAnime ? editingAnime.id : "new"} // Force re-render on switch
           initialData={editingAnime}
           onSubmit={handleSubmit}
         />
       </Modal>
+
+      {isImportModalOpen && (
+        <ImportModal
+          existingAnimes={animes}
+          onImport={handleBatchImport}
+          onClose={() => setIsImportModalOpen(false)}
+        />
+      )}
 
       <ConfirmModal
         isOpen={!!deletingAnimeId}

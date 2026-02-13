@@ -24,7 +24,7 @@ const AnimeCard = ({ anime, onEdit, onDelete, viewMode }) => {
 
   if (viewMode === "grid") {
     return (
-      <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 flex flex-col h-[380px] transition-all hover:border-indigo-400 group relative">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 flex flex-col h-[380px] transition-all hover:border-indigo-400 dark:hover:border-indigo-500 group relative">
         <div className="absolute top-2 right-2 flex gap-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
           <ActionButton
             onClick={() => onEdit(anime)}
@@ -61,18 +61,18 @@ const AnimeCard = ({ anime, onEdit, onDelete, viewMode }) => {
 
         <div className="p-4 flex-1 flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-black text-slate-800 uppercase truncate mb-1">
+            <h3 className="text-sm font-black text-slate-800 dark:text-white uppercase truncate mb-1">
               {anime.title}
             </h3>
-            <p className="text-[10px] text-slate-400 font-bold uppercase">
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase">
               {renderDate()}
             </p>
           </div>
-          <p className="text-[11px] text-slate-500 italic line-clamp-2 mt-2 leading-relaxed italic">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 italic line-clamp-2 mt-2 leading-relaxed italic">
             {anime.description || "Sin notas."}
           </p>
-          <div className="mt-2 pt-2 border-t border-slate-50">
-            <span className="text-[10px] font-black text-indigo-600 uppercase tracking-wider">
+          <div className="mt-2 pt-2 border-t border-slate-50 dark:border-slate-700">
+            <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
               EP {anime.currentEp} / {anime.totalEp || "??"}
             </span>
           </div>
@@ -83,7 +83,7 @@ const AnimeCard = ({ anime, onEdit, onDelete, viewMode }) => {
 
   // VISTA RECTANGULAR (LIST)
   return (
-    <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 flex h-40 transition-colors hover:border-indigo-300">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 flex h-40 transition-colors hover:border-indigo-300 dark:hover:border-indigo-500">
       <img
         src={anime.imgUrl || "https://placehold.co/100x150"}
         alt=""
@@ -93,7 +93,7 @@ const AnimeCard = ({ anime, onEdit, onDelete, viewMode }) => {
       <div className="flex-1 p-4 flex flex-col justify-between min-w-0">
         <div className="flex justify-between items-start gap-2">
           <div className="truncate">
-            <h3 className="text-base font-black text-slate-800 truncate leading-tight uppercase">
+            <h3 className="text-base font-black text-slate-800 dark:text-white truncate leading-tight uppercase">
               {anime.title}
             </h3>
             <div className="flex gap-2 mt-1">
@@ -102,7 +102,7 @@ const AnimeCard = ({ anime, onEdit, onDelete, viewMode }) => {
               >
                 {anime.status}
               </span>
-              <span className="text-[9px] font-bold text-slate-400 uppercase">
+              <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase">
                 {renderDate()}
               </span>
             </div>
@@ -121,12 +121,12 @@ const AnimeCard = ({ anime, onEdit, onDelete, viewMode }) => {
           </div>
         </div>
 
-        <p className="text-xs text-slate-500 italic line-clamp-2 mt-1 leading-relaxed">
+        <p className="text-xs text-slate-500 dark:text-slate-400 italic line-clamp-2 mt-1 leading-relaxed">
           {anime.description || "Sin notas."}
         </p>
 
-        <div className="mt-2 flex items-center justify-between border-t border-slate-50 pt-2">
-          <span className="text-[10px] font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md uppercase tracking-wider font-mono">
+        <div className="mt-2 flex items-center justify-between border-t border-slate-50 dark:border-slate-700 pt-2">
+          <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded-md uppercase tracking-wider font-mono">
             EP {anime.currentEp} / {anime.totalEp || "??"}
           </span>
         </div>

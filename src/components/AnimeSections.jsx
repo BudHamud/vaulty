@@ -23,17 +23,17 @@ const AnimeSections = ({ animes, viewMode, onEdit, onDelete }) => {
         const config = sectionConfig[status];
 
         return (
-          <section key={status} className="bg-white/40 rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <section key={status} className="bg-white/40 dark:bg-slate-800/40 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
             {/* Header del Colapsable */}
-            <div 
+            <div
               onClick={() => toggleSection(status)}
-              className="flex justify-between items-center cursor-pointer p-6 hover:bg-white/60 transition-colors"
+              className="flex justify-between items-center cursor-pointer p-6 hover:bg-white/60 dark:hover:bg-slate-800/60 transition-colors"
             >
               <h2 className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${config.color}`}>
                 <span className={`w-2.5 h-2.5 rounded-full ${config.dot}`}></span>
                 {status} <span className="opacity-40 ml-1">({count})</span>
               </h2>
-              <span className={`text-[10px] font-bold text-slate-300 transition-transform ${expanded[status] ? 'rotate-180' : ''}`}>
+              <span className={`text-[10px] font-bold text-slate-300 dark:text-slate-600 transition-transform ${expanded[status] ? 'rotate-180' : ''}`}>
                 ▼
               </span>
             </div>

@@ -11,6 +11,7 @@ export const mapAnimeToDB = (anime) => ({
   is_focus: anime.isFocus,
   current_ep: anime.currentEp,
   total_ep: anime.totalEp,
+  type: anime.type || "Anime",
 });
 
 export const mapAnimeFromDB = (row) => ({
@@ -25,4 +26,5 @@ export const mapAnimeFromDB = (row) => ({
   currentEp: row.current_ep,
   totalEp: row.total_ep,
   createdAt: row.created_at,
+  type: row.type || "Anime",
 });

@@ -61,6 +61,23 @@ export function useAnimes(user) {
     }
   };
 
+  // 🧨 BORRAR TODO
+  const deleteAllAnimes = async () => {
+    if (!user) return;
+    const originalAnimes = [...animes];
+    setAnimes([]); // Optimistic update
+
+    const { error } = await supabase
+      .from("animes")
+      .delete()
+      .eq("user_id", user.id);
+
+    if (error) {
+      setAnimes(originalAnimes);
+      throw error;
+    }
+  };
+
   const toggleFocus = async (id, currentStatus) => {
     const { error } = await supabase
       .from("animes")
@@ -80,6 +97,7 @@ export function useAnimes(user) {
     createAnime,
     updateAnime,
     deleteAnime,
+    deleteAllAnimes,
     toggleFocus,
     // refetch: fetchAnimes
   };

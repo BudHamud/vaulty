@@ -22,3 +22,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Test and development files
+cr_profile/
+crunchyroll-extension/
+test-scrape.js
+test-crunchyroll-debug.js
+test-crunchyroll-local.js
+crunchyroll_exporter.cjs
+crunchyroll_dump.html
+crunchyroll_series_dump.html
+*.test.js
+*.spec.js
+test-*.js
+*-test.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
