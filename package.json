@@ -16,7 +16,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sileo": "^0.1.1",
-    "vaulty-shared": "link:..\\vaulty-shared"
+    "vaulty-shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20",
