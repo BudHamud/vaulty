@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm build:web",
-  "outputDirectory": "web/.next",
-  "framework": "nextjs"
+  "comment": "Vercel project: set Root Directory to 'web' in dashboard. Config lives in web/vercel.json."
 }
+
