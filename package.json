@@ -4,5 +4,10 @@
   "scripts": {
     "build:web": "pnpm --filter vaulty-nextjs build",
     "dev:web": "pnpm --filter vaulty-nextjs dev"
+  },
+  "devDependencies": {
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   }
 }
