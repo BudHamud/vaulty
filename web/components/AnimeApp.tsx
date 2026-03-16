@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo, useState, useEffect } from "react";
 import Auth from "@/components/Auth";
 import AddToVaultModal from "@/components/AddToVaultModal";
