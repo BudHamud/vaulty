@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Vaulty - Crunchyroll Exporter",
+  "version": "1.0",
+  "description": "Exports your Crunchyroll Watch History to Vaulty",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.crunchyroll.com/history*",
+        "https://www.crunchyroll.com/*/history*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}

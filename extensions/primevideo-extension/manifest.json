@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Vaulty - Prime Video Exporter",
+  "version": "1.1",
+  "description": "Exports your Prime Video Watch History to Vaulty",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.amazon.com/gp/video/history*",
+        "https://www.amazon.es/gp/video/history*",
+        "https://www.amazon.co.uk/gp/video/history*",
+        "https://www.amazon.com.mx/gp/video/history*",
+        "https://www.amazon.com.ar/gp/video/history*",
+        "https://www.amazon.de/gp/video/history*",
+        "https://www.amazon.fr/gp/video/history*",
+        "https://www.amazon.it/gp/video/history*",
+        "https://www.primevideo.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
