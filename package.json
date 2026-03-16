@@ -1,6 +1,7 @@
 {
   "name": "vaulty-monorepo",
   "private": true,
+  "packageManager": "pnpm@10.29.2",
   "scripts": {
     "build:web": "pnpm --filter vaulty-nextjs build",
     "dev:web": "pnpm --filter vaulty-nextjs dev"
