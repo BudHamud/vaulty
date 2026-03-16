@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Vaulty Mobile",
+    "slug": "vaulty-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "backgroundColor": "#0b1020",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "android": {
+      "backgroundColor": "#0b1020",
+      "edgeToEdgeEnabled": true,
+      "package": "com.vaulty.mobile"
+    },
+    "ios": {
+      "backgroundColor": "#0b1020",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vaulty.mobile"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
