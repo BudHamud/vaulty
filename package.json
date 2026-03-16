@@ -3,6 +3,11 @@
   "private": true,
   "packageManager": "pnpm@10.29.2",
   "scripts": {
+    "web": "npm --prefix web run dev",
+    "mobile": "npm --prefix mobile run start",
+    "mobile:android": "npm --prefix mobile run android",
+    "mobile:ios": "npm --prefix mobile run ios",
+    "mobile:web": "npm --prefix mobile run web",
     "build:web": "pnpm --filter vaulty-nextjs build",
     "dev:web": "pnpm --filter vaulty-nextjs dev"
   },
