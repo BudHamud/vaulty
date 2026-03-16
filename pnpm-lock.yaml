@@ -6,6 +6,8 @@ settings:
 
 importers:
 
+  .: {}
+
   mobile:
     dependencies:
       '@react-native-async-storage/async-storage':

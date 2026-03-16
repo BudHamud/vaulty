@@ -1,0 +1,8 @@
+{
+  "name": "vaulty-monorepo",
+  "private": true,
+  "scripts": {
+    "build:web": "pnpm --filter vaulty-nextjs build",
+    "dev:web": "pnpm --filter vaulty-nextjs dev"
+  }
+}
